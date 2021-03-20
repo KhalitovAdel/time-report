@@ -1,0 +1,7 @@
+{
+  "watch": ["src/**/*", "config/**/*", "pages/**/*", "components/**/*"],
+  "ext": "ts,tsx",
+  "execMap": {
+    "ts": "ts-node --project tsconfig.server.json"
+  }
+}
