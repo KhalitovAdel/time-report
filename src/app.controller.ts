@@ -1,11 +1,12 @@
-import { Controller, Get, Render } from '@nestjs/common';
+import { Controller, Get, UseInterceptors } from '@nestjs/common';
+import { RenderInterceptor } from './@interceptors/Render.interceptor';
 
 @Controller()
 export class AppController {
   constructor() {}
 
   @Get()
-  @Render('home')
+  @UseInterceptors(new RenderInterceptor('home'))
   getHello() {
     return { name: 'adel' };
   }
