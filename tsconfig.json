@@ -9,7 +9,7 @@
     "alwaysStrict": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "outDir": ".next",
+    "outDir": ".next/",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,

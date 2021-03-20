@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf .next",
+    "prebuild": "rimraf dist .next",
     "build:server": "nest build -p tsconfig.server.json",
     "build:cli": "npx next build",
     "build": "npm run prebuild && npm run build:server && npm run build:cli",
@@ -14,7 +14,7 @@
     "start": "nest start -p tsconfig.server.json",
     "start:dev": "nest start --watch -p tsconfig.server.json",
     "start:debug": "nest start --debug --watch -p tsconfig.server.json",
-    "start:prod": "NODE_ENV=production node --no-warnings .next/production-server/main.js",
+    "start:prod": "NODE_ENV=production node --no-warnings ./dist/main.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
