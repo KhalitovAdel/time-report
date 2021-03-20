@@ -17,4 +17,5 @@ RUN npm install -P
 COPY .env* ./
 COPY config ./config
 COPY --from=building /app/.next ./.next
+COPY --from=building /app/dist ./dist
 ENTRYPOINT ["npm", "run", "start:prod"]
