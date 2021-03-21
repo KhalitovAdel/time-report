@@ -21,15 +21,15 @@ export class DatabaseDefault<ENTITY, CREATE, UPDATE> {
       .then(({ raw }) => raw?.find((el) => el));
   }
 
-  async fetch(id: number, select?: (keyof ENTITY)[]) {
-    return this.repository.findOne(id, { select });
+  fetch(id: number, select?: (keyof ENTITY)[]): Promise<ENTITY> {
+    return this.repository.findOne(id, { select }) as any;
   }
 
   async delete(id: number) {
     return this.repository.delete(id);
   }
 
-  async list(options: FindManyOptions<ENTITY>) {
+  async list(options?: FindManyOptions<ENTITY>) {
     const [document, count] = await this.repository.findAndCount(options);
     return {
       document: document || [],
