@@ -39,7 +39,7 @@ describe('CRUD', () => {
   test('should update works', async () => {
     doc = await service.create({ name: 'adel' });
     const newName = 'lol';
-    const updatedDoc = await service.update(doc.id, { name: newName }, ['name']);
+    const updatedDoc = await service.update(doc.id, { name: newName });
     expect(updatedDoc.name).toBe(newName);
   });
 
