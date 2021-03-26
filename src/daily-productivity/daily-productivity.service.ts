@@ -8,7 +8,9 @@ export class DailyProductivityService {
 
   public async create(params: DailyProductivityCreateDto) {
     const todayIsProgress = !params.finish
-      ? await this.db.list({ where: { day: params.day } }).then(({ count }) => !!count)
+      ? await this.db
+          .list({ where: { day: params.day } })
+          .then(({ document }) => !!document.find((entity) => !entity.finish))
       : false;
     if (todayIsProgress)
       throw new Error('Cannot create new productivity without finish param, while have active productivity.');
@@ -18,6 +20,7 @@ export class DailyProductivityService {
   public async update(params: DailyProductivityUpdateDto) {
     const { id, ...other } = params;
     const productivity = await this.db.fetch(id);
+    // @ts-ignore
     if (params.finish <= productivity?.start)
       throw new Error('The finish date is incorrect, it must be greater than the start date.');
     return this.db.update(id, other);

@@ -3,6 +3,9 @@ version: '3'
 networks:
   database:
 
+volumes:
+  panel:
+
 services:
   web:
     build:
@@ -21,6 +24,8 @@ services:
       - database
     ports:
     - 8080:80
+    volumes:
+    - panel:/var/lib/pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=adelkhalitov1@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=Qwerty12345

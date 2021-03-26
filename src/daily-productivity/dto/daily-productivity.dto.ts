@@ -1,5 +1,5 @@
 import { DailyProductivityEntity } from '../daily-productivity.entity';
-import { ApiProperty, OmitType } from '@nestjs/swagger';
+import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import { IsNumber, IsOptional, Validate } from 'class-validator';
 import { ValidDate } from '../../@validators/valid-date.validator';
 
@@ -19,4 +19,9 @@ export class DailyProductivityListQueryDto {
   @IsOptional()
   @Validate(ValidDate, { each: true })
   day?: string[];
+}
+
+export class DailyProductivityResponseDto {
+  count: number;
+  document: DailyProductivityEntity[];
 }

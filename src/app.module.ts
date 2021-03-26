@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { RenderModule } from 'nest-next';
 import Next from 'next';
 import { DatabaseModule } from './database/database.module';
+import { DailyProductivityModule } from './daily-productivity/daily-productivity.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { DatabaseModule } from './database/database.module';
       }),
     ),
     DatabaseModule,
+    DailyProductivityModule,
   ],
   controllers: [AppController],
   providers: [],

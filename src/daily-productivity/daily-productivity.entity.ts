@@ -20,7 +20,6 @@ export class DailyProductivityEntity {
   @IsNumber()
   @Column({
     type: 'bigint',
-    default: new Date().getTime(),
     transformer: {
       to(value) {
         return value;

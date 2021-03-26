@@ -1,10 +1,23 @@
-import { Body, Controller, Get, Param, Post, Put, Query, UseFilters, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+  UseFilters,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { DailyProductivityDatabase } from './daily-productivity.database';
 import { DailyProductivityService } from './daily-productivity.service';
 import {
   DailyProductivityCreateDto,
   DailyProductivityDefaultParamDto,
   DailyProductivityListQueryDto,
+  DailyProductivityResponseDto,
   DailyProductivityUpdateBodyDto,
 } from './dto/daily-productivity.dto';
 import { HttpExceptionFilter } from '../@filters/http-exception.filter';
@@ -14,7 +27,6 @@ import { In } from 'typeorm';
 export class DailyProductivityController {
   constructor(protected readonly db: DailyProductivityDatabase, protected readonly service: DailyProductivityService) {}
 
-  //TODO Add condition if body.finish not exists, need to check Is in db any object in this day
   @UseFilters(new HttpExceptionFilter())
   @UsePipes(new ValidationPipe({ whitelist: true }))
   @Post()
@@ -32,8 +44,16 @@ export class DailyProductivityController {
   @UseFilters(new HttpExceptionFilter())
   @Get()
   @UsePipes(new ValidationPipe({ whitelist: true }))
-  list(@Query() query: DailyProductivityListQueryDto) {
+  list(@Query() query: DailyProductivityListQueryDto): Promise<DailyProductivityResponseDto> {
     const where = Array.isArray(query.day) ? [{ day: In(query.day) }] : [];
+    console.log(query);
     return this.db.list(...(where as any));
+  }
+
+  @UseFilters(new HttpExceptionFilter())
+  @Delete(':id')
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  delete(@Param() param: DailyProductivityDefaultParamDto) {
+    return this.db.delete(param.id);
   }
 }
